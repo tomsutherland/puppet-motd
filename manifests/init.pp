@@ -7,6 +7,8 @@ class motd (
   $contact_email = undef,
   $qotd_text = undef,
   $qotd_author = undef,
+  $character = '*',
+  $length = 80,
 ) {
 
   concat { $path:
