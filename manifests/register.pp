@@ -10,6 +10,6 @@ define motd::register($content='', $order=10) {
 
   concat::fragment{"motd_fragment_${name}":
     target  => '/etc/motd',
-    content => "  *     - ${body}\n"
+    content => inline_template('<% puts @character + "    - #{@body}".ljust(@length-2,' ') + @character %>'),
   }
 }
