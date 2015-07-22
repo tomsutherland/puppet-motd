@@ -26,7 +26,7 @@ class motd (
   if (is_string($contact_email)) {
     concat::fragment { 'motd_email':
       target  => $path,
-      content => inline_template('<% puts @character + ("  Queries about this system to: " + @contact_email).ljust(@length-2,' ') + @character %>'),      
+      content => inline_template('<% puts @character + ("  Queries about this system to: " + @contact_email).ljust(@length-2,\' \') + @character %>'),
       order   => 04,
     }
   }
@@ -35,7 +35,7 @@ class motd (
   $upfqdn = upcase($::fqdn)
     concat::fragment { 'motd_fqdn':
       target  => $path,
-      content => inline_template('<% puts @character + @upfqdn.upcase.center(@length-2,' ') + @character + "\n" + @character + " " * (@length-2) + @character %>'),
+      content => inline_template('<% puts @character + @upfqdn.upcase.center(@length-2,\' \') + @character + "\n" + @character + " " * (@length-2) + @character %>'),
       order   => 03,
     }
   }
@@ -43,7 +43,7 @@ class motd (
   if ($display_puppet_warning) {
     concat::fragment { 'motd_puppet':
       target  => $path,
-      content => inline_template('<% puts @character + "  This system is managed by Puppet. Check before editing!".ljust(@length-2,' ') + @character + "\n" +  @character + " " * (@length-2) + @character %>'),
+      content => inline_template('<% puts @character + "  This system is managed by Puppet. Check before editing!".ljust(@length-2,\' \') + @character + "\n" +  @character + " " * (@length-2) + @character %>'),
       order   => 04,
     }
   }
@@ -53,14 +53,14 @@ class motd (
     validate_string($qotd_author)
     concat::fragment { 'motd_qotd':
       target  => $path,
-      content => inline_template('<% puts @character + @qotd.center(length-2,' ') + @character + "\n" + @character + @qotd_author.rjust(@length-4,' ') + "  " + @character + "\n" + @character + " " * (@length-2) + @character %>'),
+      content => inline_template('<% puts @character + @qotd.center(length-2,\' \') + @character + "\n" + @character + @qotd_author.rjust(@length-4,\' \') + "  " + @character + "\n" + @character + " " * (@length-2) + @character %>'),
       order   => 04,
     }
   }
 
   concat::fragment { 'motd_services':
     target  => $path,
-    content => inline_template('<% puts @character + "  This server provides the following services:".ljust(@length-2,' ') + @character %>'),
+    content => inline_template('<% puts @character + "  This server provides the following services:".ljust(@length-2,\' \') + @character %>'),
     order   => 05,
   }
 
