@@ -19,7 +19,7 @@ class motd (
 
   concat::fragment { 'motd_top':
     target  => $path,
-    content => inline_template('<% puts @character * @length + "\n" + @character + " " * (#{@length}-2) + @character %>'),
+    content => inline_template('<% puts @character * @length + "\n" + @character + " " * (@length-2) + @character %>'),
     order   => 02,
   }
 
